@@ -20,7 +20,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('js/app',['./node_modules/bootstrap/dist/js/bootstrap.min.js',
     './node_modules/jquery/dist/jquery.slim.js',
-    './node_modules/pooper.js/dist/pooper.min.js'
+    './node_modules/popper.js/dist/popper.min.js'
     ])
     .addStyleEntry('css/app', './node_modules/bootstrap/dist/css/bootstrap.min.css')
     //.addEntry('page1', './assets/js/page1.js')
