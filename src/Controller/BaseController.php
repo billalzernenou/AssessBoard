@@ -16,4 +16,14 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+
+    /**
+     * @Route("/sign-in", name="sign-in")
+     */
+    public function signIn()
+    {
+        return $this->render('front/sign-in.html.twig', [
+            'controller_name' => 'BaseController',
+        ]);
+    }
 }
