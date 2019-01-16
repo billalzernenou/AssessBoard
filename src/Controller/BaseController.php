@@ -36,4 +36,15 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+
+     /**
+     * @Route("/questionnaire", name="questionnaire")
+     */
+    public function questionnaire()
+    {
+        return $this->render('front/questionnaire.html.twig', [
+
+            'controller_name' => 'BaseController',
+        ]);
+    }
 }
