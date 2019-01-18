@@ -16,4 +16,14 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+
+    /**
+     * @Route("/create-survey", name="create-survey")
+     */
+    public function createSurvey()
+    {
+        return $this->render('back/create-survey.html.twig', [
+            'controller_name' => 'BaseController',
+        ]);
+    }
 }
