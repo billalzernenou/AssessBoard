@@ -22,10 +22,11 @@ Encore
     './node_modules/jquery/dist/jquery.slim.js',
     './node_modules/popper.js/dist/popper.min.js'
     ])
-    .addStyleEntry('css/app', ['./node_modules/bootstrap/dist/css/bootstrap.min.css',
+    .addStyleEntry('css/app',['./node_modules/bootstrap/dist/css/bootstrap.min.css',
     './assets/css/front/signin.css',
+    './assets/css/front/about.css',
     './node_modules/@fortawesome/fontawesome-free/css/all.css'
-    ])
+  ])
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
