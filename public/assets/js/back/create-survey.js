@@ -29,13 +29,14 @@ function insertRow() {
 	}else{
 		width = "col-sm-7";
 	}
-	divtest.innerHTML = '<div class='+width+'><input type="text" class="form-control" id="inputUE" placeholder="UE" required></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"><label class="form-check-label" for="inlineCheckbox1">Cours</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"><label class="form-check-label" for="inlineCheckbox1">TD</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"><label class="form-check-label" for="inlineCheckbox1">TP</label></div><div class="input-group-btn"><button class="btn btn-danger" type="button" onclick="removeRow('+ room +');"><i class="fa fa-minus"></i></button></div><div class="clear"></div>';
+	divtest.innerHTML = '<div class='+width+'><input type="text" class="form-control" id="inputUE" name="UE'+room+'[]" placeholder="UE" required></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="Cours[]" value="'+room+'"><label class="form-check-label" for="inlineCheckbox1">Cours</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="TD[]" value="'+room+'"><label class="form-check-label" for="inlineCheckbox1">TD</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="TP[]" value="'+room+'"><label class="form-check-label" for="inlineCheckbox1">TP</label></div><div class="input-group-btn"><button class="btn btn-danger" type="button" onclick="removeRow('+ room +');"><i class="fa fa-minus"></i></button></div><div class="clear"></div>';
 	objTo.appendChild(divtest);
 }
 
 //remove UE
 function removeRow(rid) {
 	$('.removeclass'+rid).remove();
+	room--;
 }
 
 $('#customFile').on('change',function(e){
