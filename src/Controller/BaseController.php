@@ -32,7 +32,10 @@ class BaseController extends AbstractController
     public function about()
     {
         return $this->render('front/about/about.html.twig', [
-
+            'text' => [
+                'about_title' => 'Vous êtes sur l\'application AssessBoard',
+                'text_about' => 'Notre Application permet de donner des notes au unités d\'enseignement d\'une formation donnée',
+            ],
             'controller_name' => 'BaseController',
         ]);
     }
