@@ -7,8 +7,7 @@
 opacity: 0.9;
 /*margin-top:30px;*/
 }
-.input-group-addon
-{
+.input-group-addon {
     background-color: rgb(50, 118, 177);
     border-color: rgb(40, 94, 142);
     color: rgb(255, 255, 255);
@@ -22,3 +21,7 @@ opacity: 0.9;
     background-image: url('http://blog.transfer-iphone-recovery.com/images/photo-with-blur-background.jpg');
     background-repeat:repeat;
   }
+
+p {
+  color: red;
+}
