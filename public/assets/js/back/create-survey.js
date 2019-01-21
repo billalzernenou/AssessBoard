@@ -1,5 +1,5 @@
 //bootstrap-select compatible with version 4
-$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+//$.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
 //responsive
 function resizePage()
@@ -22,7 +22,7 @@ function insertRow() {
 	room++;
 	var objTo = document.getElementById('ue');
 	var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group row removeclass"+room);
+	divtest.setAttribute("class", "form-group row justify-content-center removeclass"+room);
 	var width;
 	if($(window).width() < 993) {
 		width = "col";

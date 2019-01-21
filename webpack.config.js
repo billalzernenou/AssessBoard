@@ -20,14 +20,11 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('js/app',['./node_modules/bootstrap/dist/js/bootstrap.min.js',
     './node_modules/jquery/dist/jquery.slim.js',
-    './node_modules/popper.js/dist/popper.min.js',
-    './node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
-    '.assets/js/back/create-survey.js'
+    './node_modules/popper.js/dist/popper.min.js'
     ])
     .addStyleEntry('css/app', ['./node_modules/bootstrap/dist/css/bootstrap.min.css',
-    './node_modules/@fortawesome/fontawesome-free/css/all.css',
-    './node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
-    '.assets/css/back/create-survey.css'
+    './assets/css/front/signin.css',
+    './node_modules/@fortawesome/fontawesome-free/css/all.css'
     ])
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
