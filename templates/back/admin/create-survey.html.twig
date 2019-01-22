@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BaseController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+    <link rel="stylesheet" href="assets/css/back/create-survey.css">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="pb-2 mt-4 mb-5 border-bottom">
+    <h1>Création du questionnaire</h1>      
+  </div>
+  <form>
+    <div class="form-group row justify-content-center">
+      <label for="inputFormation" class="col-sm-2 col-form-label">Formation</label>
+        <div class="col-sm-7">
+          <div class="form-group">
+              <select class="form-control" data-live-search="true" required>
+                <option selected disabled></option>
+                <option data-tokens="sippe">Master SIPPE</option>
+              </select>
+          </div>
+        </div>
+
+    </div>
+    <div class="form-group row justify-content-center">
+      <label for="inputPromotion" class="col-sm-2 col-form-label">Promotion</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="inputPromotion" placeholder="Promotion">
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label for="inputYear" class="col-sm-2 col-form-label">Année</label>
+        <div class="col-sm-7">
+          <input type="number" class="form-control" id="inputYear" placeholder="Année">
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label for="inputUE" class="col-sm-2 col-form-label">UE</label>
+        <div class="col-sm-7" id="ue">
+          <div class="form-group row justify-content-center">
+            <div class="col-sm-7">
+              <input type="text" class="form-control" id="inputUE" name="UE1[]" placeholder="UE">
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="Cours[]" value="1">
+              <label class="form-check-label" for="inlineCheckbox1">Cours</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="TD[]" value="1">
+              <label class="form-check-label" for="inlineCheckbox1">TD</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="TP[]" value="1">
+              <label class="form-check-label" for="inlineCheckbox1">TP</label>
+            </div>
+            <div class="input-group-btn">
+              <button class="btn btn-success" type="button" onclick="insertRow();"><i class="fas fa-plus"></i></button>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label for="inputTitle" class="col-sm-2 col-form-label">Titre</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="inputTitle" placeholder="Titre">
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-7">
+          <textarea type="number" class="form-control" id="inputDescription" rows="5" placeholder="Description"></textarea>
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label for="inputList" class="col-sm-2 col-form-label">Liste des étudiants</label>
+        <div class="col-sm-7">
+          <div class="custom-file">
+            <input type="file" accept=".csv" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file (.csv)</label>
+          </div>
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-7">
+        <button type="submit" class="btn btn-primary" id="Submit">Créer</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/js/app.js') }}"> </script>
+    <script src="assets/js/back/create-survey.js"> </script>
+{% endblock %}
+{% endblock %}
