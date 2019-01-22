@@ -40,12 +40,20 @@ class BaseController extends AbstractController
         ]);
     }
     /**
+     * @Route("/settings", name="settings")
+     */
+    public function settings() {
+        return $this->render('back/admin/settings.html.twig', [
+            'controller_name' => 'BaseController',
+        ]);
+    }
+    /**
      * @Route("/create-survey", name="create-survey")
      */
     public function createSurvey()
     {
-        return $this->render('back/admin/create-survey.html.twig', [
-            'controller_name' => 'BaseController',
+        return $this->render('back/admin/create-survey.html.twig', ['
+        controller_name' => 'BaseController',
         ]);
     }
 }

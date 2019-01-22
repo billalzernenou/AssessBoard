@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mes paramètres{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+    <link rel="stylesheet" href="assets/css/back/admin/settings.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="container container-settings">
+<h1>Paramètres administrateur</h1>
+
+<!-- Admin Settings form -->
+<form>
+    <div class="row">
+        <div class="col-md-6" style="padding=0.5em;">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Mes informations</h2>
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="exemple@gmail.com" required>
+                        <div class="email-feedback">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Changement de mot de passe</h2>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">Nouveau mot de passe</label>
+                        <input type="password" class="form-control" id="password" placeholder="Nouveau mot de passe" required>
+                        <div class="password-feedback">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password_conf" class="col-form-label">Confirmation du nouveau mot de passe</label>
+                        <input type="password" class="form-control" id="password_conf" placeholder="Nouveau mot de passe" required>
+                        <div class="password_conf-feedback">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 1em;">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Sauvegarder les changements</button>
+    </div>
+    </form>
+</div>
+
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"> </script>
+{% endblock %}
+{% endblock %}
