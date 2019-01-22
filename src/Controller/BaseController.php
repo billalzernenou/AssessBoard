@@ -44,7 +44,7 @@ class BaseController extends AbstractController
      */
     public function createSurvey()
     {
-        return $this->render('back/create-survey.html.twig', [
+        return $this->render('back/admin/create-survey.html.twig', [
             'controller_name' => 'BaseController',
         ]);
     }
