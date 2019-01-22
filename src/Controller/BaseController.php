@@ -39,4 +39,10 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard() {
+        return $this->render('front/dashboard/dashboard.html.twig');
+    }
 }
