@@ -1,5 +1,5 @@
 .about-container {
-    margin-top: 70px;
+    margin-top: 120px;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
     color: white;
@@ -12,7 +12,7 @@
     z-index: 2;
     width: 80%;
     padding: 20px;
-    text-align: center;
+    text-align: center; 
 }
 .parallax {
     /* The image used */
