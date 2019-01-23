@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}PAGE DE QUESTIONNAIRE{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+   
+
+{% endblock %}
+{% block body %}
+<h1> Questionnaire d'évaluation de la formation</h1>
+
+<form>
+  <input type="radio" value="Monsieur" name="sexe"> Monsieur
+  <input type="radio" value="Monsieur" name="sexe"> Madame
+  <input type="submit" value="ENVOYER">
+</form>
+
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"> </script>
+{% endblock %}
+{% endblock %}

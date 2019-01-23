@@ -41,15 +41,25 @@ class BaseController extends AbstractController
         ]);
     }
 
+
+     /**
+     * @Route("/questionnaire", name="questionnaire")
+     */
+    public function questionnaire()
+    {
+        return $this->render('front/questionnaire.html.twig', [
+
     /**
      * @Route("/settings", name="settings")
      */
     public function settings() {
         return $this->render('back/admin/settings.html.twig', [
 
+
             'controller_name' => 'BaseController',
         ]);
     }
+
 
     /**
      * @Route("/dashboard", name="dashboard")
@@ -67,4 +77,5 @@ class BaseController extends AbstractController
         controller_name' => 'BaseController',
         ]);
     }
+
 }
