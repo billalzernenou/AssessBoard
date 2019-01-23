@@ -36,6 +36,16 @@ class BaseController extends AbstractController
                 'about_title' => 'Vous êtes sur l\'application AssessBoard',
                 'text_about' => 'Notre Application permet de donner des notes au unités d\'enseignement d\'une formation donnée',
             ],
+
+            'controller_name' => 'BaseController',
+        ]);
+    }
+    /**
+     * @Route("/settings", name="settings")
+     */
+    public function settings() {
+        return $this->render('back/admin/settings.html.twig', [
+
             'controller_name' => 'BaseController',
         ]);
     }
@@ -44,5 +54,13 @@ class BaseController extends AbstractController
      */
     public function dashboard() {
         return $this->render('front/dashboard/dashboard.html.twig');
+
+     * @Route("/create-survey", name="create-survey")
+     */
+    public function createSurvey()
+    {
+        return $this->render('back/admin/create-survey.html.twig', ['
+        controller_name' => 'BaseController',
+        ]);
     }
 }
