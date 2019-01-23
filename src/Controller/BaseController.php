@@ -48,13 +48,14 @@ class BaseController extends AbstractController
     public function questionnaire()
     {
         return $this->render('front/questionnaire.html.twig', [
-
+            'controller_name' => 'BaseController',
+          ]);
+    }
     /**
      * @Route("/settings", name="settings")
      */
     public function settings() {
         return $this->render('back/admin/settings.html.twig', [
-
 
             'controller_name' => 'BaseController',
         ]);
