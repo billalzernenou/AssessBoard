@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9c942aac129cd0b607496682c26c1ac",
+    "content-hash": "92e596c65f1b8a012f9582dbd33724dc",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3360,6 +3360,7 @@
         {
             "name": "symfony/lts",
             "version": "dev-master",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/lts.git",
@@ -3371,6 +3372,7 @@
                 "reference": "c1affae45b78aee036effa1759237e7fa96d4af2",
                 "shasum": ""
             },
+
             "conflict": {
                 "symfony/asset": ">=5",
                 "symfony/browser-kit": ">=5",
