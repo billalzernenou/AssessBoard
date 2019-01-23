@@ -56,4 +56,13 @@ class BaseController extends AbstractController
         controller_name' => 'BaseController',
         ]);
     }
+    /**
+     * @Route("/create-user", name="create-user")
+     */
+    public function createUser()
+    {
+        return $this->render('back/admin/create-user.html.twig', ['
+        controller_name' => 'BaseController',
+        ]);
+    }
 }
