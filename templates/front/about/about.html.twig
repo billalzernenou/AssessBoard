@@ -1,13 +1,31 @@
 {% extends 'base/index.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="assets/css/front/about.css">
+{% endblock %}
 {% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Bonjour</h2>
+<div class="parallax"></div>
+
+<div class="about-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ text.about_title }}</h2>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+                <p>{{ text.text_about }}</p>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="parallax"></div>
 
 {% endblock %}
 

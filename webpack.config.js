@@ -25,6 +25,10 @@ Encore
     .addStyleEntry('css/app',['./node_modules/bootstrap/dist/css/bootstrap.min.css',
     './assets/css/front/signin.css',
     './assets/css/front/questionnaire.css'
+    './assets/css/front/dash.css',
+    './assets/css/front/about.css',
+    './assets/css/front/about.css'
+
   ])
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
