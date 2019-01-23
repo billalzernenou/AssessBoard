@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'utilisateur{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+    <link rel="stylesheet" href="assets/css/back/create-survey.css">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="pb-2 mt-4 mb-5 border-bottom">
+    <h1>Création d'utilisateur</h1>
+  </div>
+  <form>
+    <div class="card">
+    <img class="card-img-top" src="assets/img/create_user_banner.jpg" alt="Card image cap" style= "max-height: 400px; width: auto;">
+    <div class="card-body">
+
+        <div class="form-group row justify-content-center">
+            <label for="pseudo" class="col-sm-2 col-form-label">Nom d'utilisateur</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="pseudo" placeholder="Nom d'utilisateur">
+              </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="email" class="col-sm-2 col-form-label">Adresse email</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="email" placeholder="exemple@gmail.com">
+              </div>
+              <small id="emailHelpBlock" class="form-text text-muted">
+                  Un email sera envoyé au nouvel utilisateur avec un mot de passe généré.
+              </small>
+        </div>
+        <div class="form-group row justify-content-center">
+          <label for="rank" class="col-sm-2 col-form-label">Type de compte</label>
+            <div class="col-sm-7">
+              <div class="form-group">
+                  <select class="form-control" data-live-search="true" required>
+                    <option selected disabled></option>
+                    <option data-tokens="superadmin">Super Administrateur</option>
+                    <option data-tokens="admin">Administrateur</option>
+                    <option data-tokens="user" selected>Simple utilisateur</option>
+                  </select>
+              </div>
+              <small id="rankHelpBlock" class="form-text text-muted">
+                  Un simple utilisateur ne peut pas créer de questionnaire mais peut consulter les statistiques et réponses.
+              </small>
+          </div>
+          <div class="w-100"></div>
+        <div class="form-group row justify-content-center">
+          <label class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-7">
+            <button type="submit" class="btn btn-primary" id="Submit">Créer</button>
+          </div>
+        </div>
+
+</div>
+</div>
+  </form>
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"> </script>
+{% endblock %}
+{% endblock %}

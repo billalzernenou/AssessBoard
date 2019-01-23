@@ -41,7 +41,6 @@ class BaseController extends AbstractController
         ]);
     }
 
-
      /**
      * @Route("/questionnaire", name="questionnaire")
      */
@@ -51,6 +50,7 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
           ]);
     }
+
     /**
      * @Route("/settings", name="settings")
      */
@@ -58,6 +58,16 @@ class BaseController extends AbstractController
         return $this->render('back/admin/settings.html.twig', [
 
             'controller_name' => 'BaseController',
+        ]);
+    }
+  
+  /**
+     * @Route("/create-user", name="create-user")
+     */
+    public function createUser()
+    {
+        return $this->render('back/admin/create-user.html.twig', ['
+        controller_name' => 'BaseController',
         ]);
     }
 
