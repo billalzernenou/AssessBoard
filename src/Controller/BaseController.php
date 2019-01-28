@@ -50,6 +50,15 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
           ]);
     }
+     /**
+     * @Route("/statistique", name="statistique")
+     */
+    public function statistique()
+    {
+        return $this->render('front/statistique.html.twig', [
+            'controller_name' => 'BaseController',
+          ]);
+    }
 
     /**
      * @Route("/settings", name="settings")
