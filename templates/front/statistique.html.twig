@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+{% block title %}PAGE DE QUESTIONNAIRE{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+    <link rel="stylesheet" type="text/css" href="assets/css/front/statistique.css">
+    <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel="stylesheet">
+        <!-- Resources  graphique higcharts-->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+   
+    <!-- Styles -->
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+<section class="bordure_sect container">
+		
+		<h1> Statistiques de la formation</h1>
+
+		<form>
+  			<div class=" align-items-center form-group row justify-content-center">
+  				<label class="mr-sm-1 label_mise_en_forme" for="inlineFormCustomSelect">Promotion</label>
+    		<div class="col-auto my-1 col-sm-4">
+      
+     		<select class="custom-select mr-sm-3" id="inlineFormCustomSelect">
+        		<option selected>Choix de la promotion</option>
+        		<option value="Licence 1">Licence 1</option>
+        		<option value=" Licence 2">Licence 2</option>
+        		<option value="Licence 3">Licence 3</option>
+        		<option value="Master 1">Master 1</option>
+        		<option value="Master 1">Master 2</option>
+      		</select>
+    		</div>
+    	<label class="mr-sm-2 label_mise_en_forme" for="prom_année" >Année</label>
+      	<div class="custom-control custom-checkbox mr-sm-2 col-auto my-1 col-sm-4">
+        <input type="number" class="form-control" id="prom_année" placeholder="Année">
+      </div>
+   
+  </div>
+</form>
+
+
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+
+
+
+
+
+
+
+
+
+</section>
+
+
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"> </script>
+
+
+<!-- Chart code -->
+<script>
+
+// Build the chart
+Highcharts.chart('container', {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'Statistiques de la Promotion Sippe/M1 2019'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: false
+      },
+      showInLegend: true
+    }
+  },
+  series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+      name: 'U1',
+      y: 61.41,
+      sliced: true,
+      selected: true
+    }, {
+      name: 'U2',
+      y: 11.84
+    }, {
+      name: 'U3',
+      y: 10.85
+    }, {
+      name: 'U4',
+      y: 4.67
+    }, {
+      name: 'U5',
+      y: 4.18
+    }, {
+      name: 'U6',
+      y: 7.05
+    }]
+  }]
+});
+</script>
+
+{% endblock %}
+{% endblock %}
