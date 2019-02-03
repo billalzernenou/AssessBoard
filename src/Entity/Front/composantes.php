@@ -5,9 +5,9 @@ namespace App\Entity\Front;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Front\ComposantesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Front\composantesRepository")
  */
-class Composantes
+class composantes
 {
     /**
      * @ORM\Id()

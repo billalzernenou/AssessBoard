@@ -2,7 +2,7 @@
 
 namespace App\Repository\Front;
 
-use App\Entity\Front\Etablissements;
+use App\Entity\Front\etablissements;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Etablissements[]    findAll()
  * @method Etablissements[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EtablissementsRepository extends ServiceEntityRepository
+class etablissementsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {

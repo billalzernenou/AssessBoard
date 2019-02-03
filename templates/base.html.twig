@@ -21,15 +21,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#"></a>
                 </li>
+                {% if not app.user %}
                 <li class="nav-item">
-                    <a class="nav-link" class="balise" href="#">Link</a>
-
+                    <a class="nav-link" class="balise" href="{{ path('security_login') }}">Connexion</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" class="balise" href="{{ path('security_logout') }}">Déconnexion</a>
+                </li>
+                <li class="nav-item">
+                    <h4> {{ app.user.username }}</h4>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     {% endblock %}
-    <body>        
-        {% block body %}    
+    <body>
+        {% block body %}
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
