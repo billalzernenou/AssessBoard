@@ -32,7 +32,7 @@ class sessions
      * @ORM\JoinColumn(nullable=false)
      */
      private $questionnaire;
-     
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,7 +61,7 @@ class sessions
 
         return $this;
     }
-
+    
     public function getQuestionnaire(): ?questionnaire
     {
         return $this->questionnaire;
