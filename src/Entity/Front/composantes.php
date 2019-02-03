@@ -21,6 +21,13 @@ class composantes
      */
     private $name;
 
+    /**
+   *
+   * @ORM\ManyToOne(targetEntity="App\Entity\Front\etablissements", cascade={"persist"})
+   * @ORM\JoinColumn(nullable=false)
+   */
+   private $etablisseent ;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +41,18 @@ class composantes
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getEtablisseent(): ?etablissements
+    {
+        return $this->etablisseent;
+    }
+
+    public function setEtablisseent(?etablissements $etablisseent): self
+    {
+        $this->etablisseent = $etablisseent;
 
         return $this;
     }

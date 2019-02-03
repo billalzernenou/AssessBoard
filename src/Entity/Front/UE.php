@@ -26,6 +26,18 @@ class UE
      */
     private $hasTDTP;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasLessons;
+
+  /**
+   *
+   * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", cascade={"persist"})
+   * @ORM\JoinColumn(nullable=false)
+   */
+   private $questionnaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,4 +66,30 @@ class UE
 
         return $this;
     }
+
+    public function getHasLessons(): ?bool
+    {
+        return $this->hasLessons;
+    }
+
+    public function setHasLessons(?bool $hasLessons): self
+    {
+        $this->hasLessons = $hasLessons;
+
+        return $this;
+    }
+
+    public function getQuestionnaire(): ?questionnaire
+    {
+        return $this->questionnaire;
+    }
+
+    public function setQuestionnaire(?questionnaire $questionnaire): self
+    {
+        $this->questionnaire = $questionnaire;
+
+        return $this;
+    }
+
+
 }

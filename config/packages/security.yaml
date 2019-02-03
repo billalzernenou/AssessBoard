@@ -1,12 +1,12 @@
 security:
     encoders:
-      App\Entity\User:
+      App\Entity\Back\User:
         algorithm: bcrypt
     providers:
         in_memory: { memory: ~ }
         in_database:
           entity:
-            class: App\Entity\User
+            class: App\Entity\Back\User
             property: username
     firewalls:
         dev:

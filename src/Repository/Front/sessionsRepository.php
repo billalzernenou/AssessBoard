@@ -2,7 +2,7 @@
 
 namespace App\Repository\Front;
 
-use App\Entity\Front\session;
+use App\Entity\Front\sessions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method session[]    findAll()
  * @method session[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class sessionRepository extends ServiceEntityRepository
+class sessionsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {

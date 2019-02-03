@@ -5,9 +5,9 @@ namespace App\Entity\Front;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Front\sessionRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Front\sessionsRepository")
  */
-class session
+class sessions
 {
     /**
      * @ORM\Id()
@@ -26,6 +26,13 @@ class session
      */
     private $isDone;
 
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+     private $questionnaire;
+     
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +58,18 @@ class session
     public function setIsDone(?bool $isDone): self
     {
         $this->isDone = $isDone;
+
+        return $this;
+    }
+
+    public function getQuestionnaire(): ?questionnaire
+    {
+        return $this->questionnaire;
+    }
+
+    public function setQuestionnaire(?questionnaire $questionnaire): self
+    {
+        $this->questionnaire = $questionnaire;
 
         return $this;
     }
