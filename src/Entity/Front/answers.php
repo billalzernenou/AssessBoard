@@ -20,6 +20,7 @@ class answers
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $mark;
+
     /**
    *
    * @ORM\ManyToOne(targetEntity="App\Entity\Front\UE", cascade={"persist"})
@@ -34,12 +35,13 @@ class answers
     */
     private $sessions ;
 
- /**
- *
- * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionType", cascade={"persist"})
- * @ORM\JoinColumn(nullable=false)
- */
- private $questionType ;
+   /**
+   *
+   * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionType", cascade={"persist"})
+   * @ORM\JoinColumn(nullable=false)
+   */
+   private $questionType ;
+  
 
     public function getId(): ?int
     {
@@ -57,6 +59,7 @@ class answers
 
         return $this;
     }
+
 
     public function getUE(): ?UE
     {
@@ -93,4 +96,5 @@ class answers
 
         return $this;
     }
+
 }

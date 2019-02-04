@@ -1,13 +1,17 @@
 security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
-      App\Entity\Back\User:
-        algorithm: bcrypt
+      Symfony\Component\security\core\user\user: plaintext
     providers:
-        in_memory: { memory: ~ }
-        in_database:
-          entity:
-            class: App\Entity\Back\User
-            property: username
+        in_memory:
+           # provider type - one of the above
+            memory:
+                # custom options for that provider
+                users:
+                    user:  { password: 'hi', roles: [ 'ROLE_USER' ] }
+                    root:  { password: 'softools', roles: [ 'ROLE_ADMIN' ] }
+
+
 
     firewalls:
         dev:
@@ -15,15 +19,6 @@ security:
             security: false
         main:
             anonymous: true
-
-            provider: in_database
-
-            form_login:
-              login_path: security_login
-              check_path: security_login
-            logout:
-              path: security_logout
-              target: about
 
             # activate different ways to authenticate
 

@@ -19,6 +19,7 @@ class questionnaire
     /**
      * @ORM\Column(type="string", length=255)
      */
+
     private $title;
 
     /**
@@ -45,7 +46,6 @@ class questionnaire
      private $composant;
 
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +63,7 @@ class questionnaire
         return $this;
     }
 
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -74,6 +75,7 @@ class questionnaire
 
         return $this;
     }
+
 
     public function getPromo(): ?string
     {
@@ -110,4 +112,5 @@ class questionnaire
 
         return $this;
     }
+
 }

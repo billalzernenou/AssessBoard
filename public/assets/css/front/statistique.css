@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: Arial,sans-serif;
+    font-size: 15px;}
+
+.wrapper{
+    width: 940px;
+    margin: 0 auto;
+    padding: 0 10px;}
+
+  section h1{
+
+  	text-align: center; padding-bottom: 20px;
+    	padding-top: 100px;
+    	font-family: 'Crete Round',serif;
+    font-size: 45px;
+    color: #444;
+    border-bottom: 1px solid black;
+    }
+
+    .label_mise_en_forme{
+
+		font-family: 'Crete Round',serif;
+    	font-size: 20px;
+    	color: #444;
+
+    }
+
+    .bordure_sect{
+    	border:1px solid black;
+    	border-radius: 5px;
+    	margin-top: 120px;
+    }
+
+    #chartdiv {
+  width: 100%;
+  height: 500px;
+}

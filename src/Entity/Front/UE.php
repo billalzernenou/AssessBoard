@@ -67,6 +67,7 @@ class UE
         return $this;
     }
 
+
     public function getHasLessons(): ?bool
     {
         return $this->hasLessons;
@@ -90,6 +91,5 @@ class UE
 
         return $this;
     }
-
 
 }
