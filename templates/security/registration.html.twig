@@ -3,14 +3,14 @@
 {% block title %}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
-
-
+    <link rel="stylesheet" href="assets/css/front/signinn.css">
 {% endblock %}
 
 {% block body %}
 <br>
 <br>
 <br>
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
   {{ form_start(form)}}
   {{form_row(form.username,{'label': 'Nom d\'Utilisateur','attr': {'placeholder': 'Nom d\'utilisateur...'}}) }}
   {{form_row(form.email,{'label': 'Adresse Email','attr': {'placeholder': 'Adresse Email...'}}) }}
@@ -20,4 +20,6 @@
 
   <button type="submit" class="btn btn_success"> Inscription! </button>
   {{ form_end(form)}}
+
+
 {% endblock %}

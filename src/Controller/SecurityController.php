@@ -41,7 +41,6 @@ class SecurityController extends AbstractController
 
         ]);
     }
-
     /**
      * @Route("/decnnexion", name="security_logout")
      */
