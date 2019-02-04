@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "92e596c65f1b8a012f9582dbd33724dc",
@@ -3360,7 +3360,6 @@
         {
             "name": "symfony/lts",
             "version": "dev-master",
-
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/lts.git",
@@ -3711,7 +3710,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
