@@ -2,7 +2,7 @@
 
 namespace App\Repository\Back;
 
-use App\Entity\Back\user;
+use App\Entity\Back\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -12,11 +12,11 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method user[]    findAll()
  * @method user[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class userRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, user::class);
+        parent::__construct($registry, User::class);
     }
 
     // /**

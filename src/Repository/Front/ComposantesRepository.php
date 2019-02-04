@@ -2,7 +2,7 @@
 
 namespace App\Repository\Front;
 
-use App\Entity\Front\Composantes;
+use App\Entity\Front\composantes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -12,15 +12,15 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Composantes[]    findAll()
  * @method Composantes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ComposantesRepository extends ServiceEntityRepository
+class composantesRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Composantes::class);
+        parent::__construct($registry, composantes::class);
     }
 
     // /**
-    //  * @return Composantes[] Returns an array of Composantes objects
+    //  * @return cmposantes[] Returns an array of Composantes objects
     //  */
     /*
     public function findByExampleField($value)
