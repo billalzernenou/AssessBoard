@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190204142041 extends AbstractMigration
+final class Version20190205171150 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -29,7 +29,7 @@ final class Version20190204142041 extends AbstractMigration
         $this->addSql('CREATE TABLE ue (id INT AUTO_INCREMENT NOT NULL, questionnaire_id INT NOT NULL, name VARCHAR(255) DEFAULT NULL, has_tdtp TINYINT(1) DEFAULT NULL, has_lessons TINYINT(1) DEFAULT NULL, INDEX IDX_2E490A9BCE07E8FF (questionnaire_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE etablissements (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE questionnaire (id INT AUTO_INCREMENT NOT NULL, composant_id INT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, promo VARCHAR(255) NOT NULL, year INT NOT NULL, INDEX IDX_7A64DAF7F3310E7 (composant_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:simple_array)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE answers ADD CONSTRAINT FK_50D0C60662E883B1 FOREIGN KEY (ue_id) REFERENCES ue (id)');
         $this->addSql('ALTER TABLE answers ADD CONSTRAINT FK_50D0C606F17C4D8C FOREIGN KEY (sessions_id) REFERENCES sessions (id)');
         $this->addSql('ALTER TABLE answers ADD CONSTRAINT FK_50D0C606CB90598E FOREIGN KEY (question_type_id) REFERENCES question_type (id)');

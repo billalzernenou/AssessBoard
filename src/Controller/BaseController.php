@@ -69,7 +69,7 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
-  
+
   /**
      * @Route("/create-user", name="create-user")
      */
