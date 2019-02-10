@@ -33,7 +33,7 @@ class UE
 
   /**
    *
-   * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", cascade={"persist"})
+   * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", inversedBy="ues")
    * @ORM\JoinColumn(nullable=false)
    */
    private $questionnaire;

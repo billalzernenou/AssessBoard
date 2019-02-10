@@ -19,6 +19,13 @@ class composantesRepository extends ServiceEntityRepository
         parent::__construct($registry, composantes::class);
     }
 
+    public function composantesByName($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.name', 'ASC')
+        ;
+    }
+
     // /**
     //  * @return cmposantes[] Returns an array of Composantes objects
     //  */

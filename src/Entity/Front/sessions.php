@@ -11,8 +11,7 @@ class sessions
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $id;
 
@@ -28,14 +27,27 @@ class sessions
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", inversedBy="sessions", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-     private $questionnaire;
+    private $questionnaire;
 
-    public function getId(): ?int
+    public function __construct()
+    {
+        //By default, isDone is false
+        $this->isDone = false;
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(?string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string
