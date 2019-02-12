@@ -79,7 +79,7 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
-  
+
   /**
      * @Route("/create-user", name="create-user")
      */
@@ -99,11 +99,6 @@ class BaseController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard", name="dashboard")
-     */
-    public function dashboard() {
-        return $this->render('front/dashboard/dashboard.html.twig');
-
      * @Route("/create-survey", name="create-survey")
      */
     public function createSurvey(Request $request, ObjectManager $manager)
@@ -115,14 +110,14 @@ class BaseController extends AbstractController
         if($form->issubmitted() && $form->isValid()) {
 
             $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-     
+
             if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mimes)) {
 
                 foreach ($questionnaire->getUES() as $ue)
                 {
                     $ue->setQuestionnaire($questionnaire);
                 }
-                
+
                 $manager->persist($questionnaire);
                 //$manager->flush();
 
@@ -150,23 +145,23 @@ class BaseController extends AbstractController
 
     public function readSpreadsheet()
     {
-         
+
         $arr_file = explode('.', $_FILES['file']['name']);
         $extension = end($arr_file);
-         
+
         // Read the spreadsheet
         if('csv' == $extension) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
         } else {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         }
-         
+
         $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
-             
+
         $sheetData = $spreadsheet->getActiveSheet()->toArray();
 
         // Retrive emails in an array
-        $emails = []; 
+        $emails = [];
         foreach($sheetData as $row => $innerArray){
             foreach($innerArray as $innerRow => $value){
                 if(\strpos($value, '@') !== false){
