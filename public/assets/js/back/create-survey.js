@@ -1,47 +1,107 @@
-//bootstrap-select compatible with version 4
-//$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+// Align checkboxes
+$('.form-check').addClass('form-check-inline');
 
-//responsive
-function resizePage()
-{
-	var width = $(window).width();
-	if(width < 993) {
-		$(".col-sm-7").removeClass("col-sm-7").addClass("col");
-		$(".col-sm-8").removeClass("col-sm-8").addClass("col");
-	}else{
-		$(".col").removeClass("col").addClass("col-sm-7");
-		$(".col").removeClass("col").addClass("col-sm-8");
-	}
-}
-$(window).resize(resizePage);
-resizePage();
+// On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+var $container = $('div#questionnaire_ues');
 
-var room = 1;
-//add UE
-function insertRow() {
-	room++;
-	var objTo = document.getElementById('ue');
-	var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group row justify-content-center removeclass"+room);
-	var width;
-	if($(window).width() < 993) {
-		width = "col";
-	}else{
-		width = "col-sm-7";
-	}
-	divtest.innerHTML = '<div class='+width+'><input type="text" class="form-control" id="inputUE" name="UE'+room+'" placeholder="UE" required></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="Cours[]" value="'+room+'"><label class="form-check-label" for="inlineCheckbox1">Cours</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="TD[]" value="'+room+'"><label class="form-check-label" for="inlineCheckbox1">TD</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="TP[]" value="'+room+'"><label class="form-check-label" for="inlineCheckbox1">TP</label></div><div class="input-group-btn"><button class="btn btn-danger" type="button" onclick="removeRow('+ room +');"><i class="fa fa-minus"></i></button></div><div class="clear"></div>';
-	objTo.appendChild(divtest);
+// On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+var index = $container.find(':input').length;
+
+// On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+$('#add_ue').click(function(e) {
+	addUE($container);
+	e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+	return false;
+});
+
+// On ajoute un premier champ automatiquement s'il n'en existe pas déjà un.
+if (index == 0) {
+	addUE($container);
+} else {
+	// S'il existe déjà des ues, on ajoute un lien de suppression pour chacune d'entre elles
+	$container.children('div').each(function() {
+		addDeleteLink($(this));
+	});
 }
 
-//remove UE
-function removeRow(rid) {
-	$('.removeclass'+rid).remove();
-	room--;
+// La fonction qui ajoute un formulaire UEType
+function addUE($container) {
+	// Dans le contenu de l'attribut « data-prototype », on remplace :
+	// - le texte "__name__label__" qu'il contient par le label du champ
+	// - le texte "__name__" qu'il contient par le numéro du champ
+	var template = $container.attr('data-prototype')
+		.replace(/__name__label__/g, 'UE' + (index+1))
+        .replace(/__name__/g, index)
+	;
+
+	// On crée un objet jquery qui contient ce template
+	var $prototype = $(template);
+
+	// On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+	addDeleteLink($prototype);
+
+	// On ajoute le prototype modifié à la fin de la balise <div>
+	$container.append($prototype);
+
+	// Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+	index++;
 }
 
+// La fonction qui ajoute un lien de suppression d'une catégorie
+function addDeleteLink($prototype) {
+	// Création du lien
+	var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+	// Ajout du lien
+	$prototype.append($deleteLink);
+
+	// Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+	$deleteLink.click(function(e) {
+        $prototype.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+	});
+}
+
+/// Display the file's name
 $('#customFile').on('change',function(e){
-	//get the file name
+	// Get the file name
 	var fileName = e.target.files[0].name;
-	//replace the "Choose a file" label
+	// Replace the "Choose a file" label
 	$(this).next('.custom-file-label').html(fileName);
 });
+
+// Check the file's extension
+function fileValidation(){
+	// Get the file name, possibly with path (depends on browser)
+	var fileInput = $('#customFile');
+    var filePath = fileInput.val();
+    var allowedExtensions = /(\.csv|\.xlsx)$/i;
+    if(!allowedExtensions.exec(filePath)){
+        $('.custom-file .invalid-feedback').css("display","block");
+        fileInput.value = '';
+        return false;
+    }else{
+    	$('.custom-file .invalid-feedback').css("display","none");
+    	return true;
+    }
+}
+
+$('form').submit(function (e) {
+	
+	if (fileValidation()) {
+		$("div[id^=questionnaire_ues_]").each(function() {
+		 	//check at least 1 checkbox is checked
+			if (!$(this).find('input[type=checkbox]').is(':checked')){
+				$(this).append('<div class="form-group"><div class="invalid-feedback">Veuillez cocher au moins une case</div></div>');
+        		$(this).find('.invalid-feedback').css("display","block");
+				//prevent the default form submit if it is not checked
+				e.preventDefault();
+        	}else{
+        		$(this).find('.invalid-feedback').css("display","none");
+        	}
+		});
+	} else {
+		e.preventDefault();
+	}
+})
