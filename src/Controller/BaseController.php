@@ -99,6 +99,11 @@ class BaseController extends AbstractController
     }
 
     /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard() {
+        return $this->render('front/dashboard/dashboard.html.twig');
+
      * @Route("/create-survey", name="create-survey")
      */
     public function createSurvey(Request $request, ObjectManager $manager)
