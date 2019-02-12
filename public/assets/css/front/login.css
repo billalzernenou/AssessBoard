@@ -4,18 +4,6 @@ body {
   background-image: url("/assets/img/college.jpg");
 }
 
-.auth__header {
-  padding: 13vh 1rem calc(11vh + 35px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f0f0;
-  background-image: linear-gradient(#84ee1c,#76da94);
-  background-size: cover;
-  background-position: center center;
-  position: relative;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-}
 .auth__header:before {
   content: "";
   position: absolute;
@@ -24,14 +12,8 @@ body {
   right: 0;
   bottom: 0;
 }
-.auth__logo {
-  position: relative;
-  z-index: 18;
-  background: #fff;
-  padding: 10px;
-  border-radius: 50%;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
+.auth {
+  margin-top: 120px;
 }
 .auth__body {
   padding-bottom: 2rem;
@@ -40,38 +22,41 @@ body {
   width: 340px;
     margin: 50px auto;
 }
-  .login-form form {
-    margin-bottom: 15px;
-      background: rgba(0,0,0,.6);
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-      padding: 30px;
-  }
-  .login-form h2 {
-      margin: 0 0 15px;
-      color: #84ee1c;
-  }
-  .form-control, .btn {
-      min-height: 38px;
-      border-radius: 2px;
-      background: #84ee1c;
-      border-color:#84ee1c;
-  }
-  .form-control, .btn:hover,
-  .form-control, .btn:active{
-      min-height: 38px;
-      border-radius: 2px;
-      background: #84ee1c;
-      border-color:#76da94;
-  }
-  .btn {
-      font-size: 15px;
-      font-weight: bold;
-  }
-  .clearfix a
-  {
-    color: white;
-  }
-  .out_link
-  {
-    color:white;
-  }
+.login-form form {
+  margin-bottom: 15px;
+    background: rgba(255,255,255,.6);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+    font-size: 50px;
+    color: #6bc70f !important;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+    border-color:#84ee1c;
+}
+.forgot a {
+  color: black;
+  text-decoration: underline;
+}
+.form-control, .btn:hover,
+.form-control, .btn:active{
+    min-height: 38px;
+    border-radius: 2px;
+    border-color:#76da94;
+}
+.btn {
+    font-size: 15px;
+    font-weight: bold;
+    background: #84ee1c;
+}
+.btn:hover {
+  background: #78d31c;
+}
+.out_link
+{
+  color:white;
+}
