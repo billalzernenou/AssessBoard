@@ -110,7 +110,7 @@ class BaseController extends AbstractController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard(EntityManagerInterface $em) {
+    public function dashboard() {
         return $this->render('back/admin/dashboard.html.twig');
     }
 
