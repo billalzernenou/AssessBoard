@@ -3,6 +3,7 @@
 namespace App\Entity\Front;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Front\questionnaireRepository")
@@ -45,6 +46,28 @@ class questionnaire
      */
      private $composant;
 
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Front\UE", mappedBy="questionnaire", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+     private $ues;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Front\sessions", mappedBy="questionnaire", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+     private $sessions;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ues = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,6 +134,46 @@ class questionnaire
         $this->composant = $composant;
 
         return $this;
+    }
+
+    public function addUE(UE $ue)
+    {
+        $ue->setQuestionnaire($this);
+        $this->ues[] = $ue;
+
+        return $this;
+    }
+
+    public function removeUE(UE $ue)
+    {
+        $this->ues->removeElement($ue);
+    }
+
+    public function getUES()
+    {
+        return $this->ues;
+    }
+
+    public function addSession(sessions $session)
+    {
+        $session->setQuestionnaire($this);
+        $this->sessions[] = $session;
+
+        return $this;
+    }
+
+    public function removeSession(sessions $session)
+    {
+        $this->sessions->removeElement($session);
+    }
+
+    public function getSessions()
+    {
+        return $this->sessions;
+    }
+
+    public function __toString() {
+        return $this->getPromo();
     }
 
 }
