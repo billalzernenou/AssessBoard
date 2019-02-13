@@ -17,45 +17,44 @@ use Symfony\Component\Form\FormError;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/inscription", name="security_registration")
-     */
-    public function registration(Request $request, ObjectManager $manager,UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer){
-      $user = new User();
-      $form= $this->createForm(RegistrationType::class,$user);
-      $form->handleRequest($request);
-      $random = random_bytes(10);
-      $random='ABCDEFGH';
+  /**
+   * @Route("/create-user", name="create-user")
+   */
+  public function registration(Request $request, ObjectManager $manager,UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer){
+    $user = new User();
+    $form= $this->createForm(RegistrationType::class,$user);
+    $form->handleRequest($request);
+    $random = random_bytes(10);
+    $random='ABCDEFGH';
 
 
-      if($form->issubmitted() && $form->isValid()) {
-        $hash = $encoder->encodePassword($user,$random);
-        $user->setPassword($hash);
-        $manager->persist($user);
-        $manager->flush();
-        $task = $form->getData();
+    if($form->issubmitted() && $form->isValid()) {
+      $hash = $encoder->encodePassword($user,$random);
+      $user->setPassword($hash);
+      $manager->persist($user);
+      $manager->flush();
+      $task = $form->getData();
 
-      $message = (new \Swift_Message('Hello Email'))
-        ->setFrom('assessboard.sippe@gmail.com')
-        ->setTo($form->get('email')->getData())
-        // Or set it after like this
-        ->setBody(
-             $this->renderView(
-                'mail/mail.html.twig',
-                ['user' => $user,
-                'password'=> $random]
-            )
-        );
+    $message = (new \Swift_Message('AssessBoard  Inscription'))
+      ->setFrom('assessboard.sippe@gmail.com')
+      ->setTo($form->get('email')->getData())
+      // Or set it after like this
+      ->setBody(
+           $this->renderView(
+              'mail/mail.html.twig',
+              ['user' => $user,
+              'password'=> $random]
+          )
+      );
 
-        $mailer->send($message);
+      $mailer->send($message);
 
-        return $this->redirectToRoute('security_login');
-      }
-        return $this->render('security/registration.html.twig',[
-            'form' => $form->createView()
-        ]);
+      return $this->redirectToRoute('security_login');
     }
-
+      return $this->render('security/create-user.html.twig',[
+          'form' => $form->createView()
+      ]);
+  }
     /**
      * @Route("/connexion", name="security_login")
      */
