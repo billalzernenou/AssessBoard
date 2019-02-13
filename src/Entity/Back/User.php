@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Back\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Back\userRepository")
  * @UniqueEntity(
  * fields={"email"},
  * message= "email que vous avez indiqué est déjà utilisé !"

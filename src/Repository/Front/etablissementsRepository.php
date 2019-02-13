@@ -16,7 +16,7 @@ class etablissementsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Etablissements::class);
+        parent::__construct($registry, etablissements::class);
     }
 
     // /**
