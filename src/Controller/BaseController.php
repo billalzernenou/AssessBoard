@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use App\Entity\Back\user;
 use App\Entity\Front\questionnaire;
 use App\Entity\Front\UE;
 use App\Entity\Front\sessions;
@@ -22,9 +23,15 @@ class BaseController extends AbstractController
      */
     public function index()
     {
-        return $this->render('base/index.html.twig', [
-            'controller_name' => 'BaseController',
-        ]);
+        $res;
+        $usr = $this->getUser();
+        if (!$usr) {
+            $res = $this->about();
+        } else {
+            $res = $this->dashboard();
+           
+        }
+        return $res;
     }
 
    /**
@@ -44,7 +51,16 @@ class BaseController extends AbstractController
         return $this->render('front/about/about.html.twig', [
             'text' => [
                 'about_title' => 'Vous êtes sur l\'application AssessBoard',
-                'text_about' => 'Notre Application permet de donner des notes au unités d\'enseignement d\'une formation donnée',
+                'text_about' => 
+                'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born 
+                and I will give you a complete account of the system, and expound the actual teachings of the great explorer 
+                of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, 
+                because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences
+                that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
+                because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.
+                To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain 
+                some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure 
+                that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?',
             ],
 
             'controller_name' => 'BaseController',
@@ -95,7 +111,7 @@ class BaseController extends AbstractController
      * @Route("/dashboard", name="dashboard")
      */
     public function dashboard(EntityManagerInterface $em) {
-        return $this->render('front/dashboard/dashboard.html.twig');
+        return $this->render('back/admin/dashboard.html.twig');
     }
 
     /**
