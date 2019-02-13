@@ -9,6 +9,10 @@ security:
             class: App\Entity\Back\User
             property: username
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -37,4 +41,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         #- { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/sign-in, roles: ROLE_USER }
+         #- { path: ^/settings, roles: ROLE_SUPER_ADMIN }
+         #- { path: ^/questionnaire, roles: ROLE_ADMIN }
+         #- { path: ^/statistique, roles: ROLE_USER  }

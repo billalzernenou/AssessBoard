@@ -16,6 +16,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
+    const ROLE_USER ='ROLE_USER';
+    const ROLE_ADMIN ='ROLE_ADMIN' ;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,14 +38,26 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8",minMessage="votre mot de passe doit faire minimum 8 caractères")
+     *
      */
     private $password;
+
+    /**
+     *@Assert\Length(min="8",minMessage="votre mot de passe doit faire minimum 8 caractères")
+     *@@Assert\NotBlanck()
+     */
+    public $plainPassword;
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="vous n\'avez pas tapez le meme mot de passe")
      */
     public $confirm_password;
+
+    /**
+     * @var array
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles = [];
 
     public function getId(): ?int
     {
@@ -85,10 +99,30 @@ class User implements UserInterface
 
         return $this;
     }
+    public function getPlainPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPlainPassword(string $PlainPassword): self
+    {
+        $this->PlainPassword = $PlainPassword;
+
+        return $this;
+    }
+
     public function eraseCredentials() {}
     public function getSalt() {}
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
     public function getRoles() {
-      return['ROLE_USER'];
+      $roles= $this->roles;
+      //guarantee every user at least has ROLE_USER
+
+      return $this->roles;
     }
 
 }
