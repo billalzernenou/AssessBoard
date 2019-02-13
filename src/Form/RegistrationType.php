@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormError;
 
 
 class RegistrationType extends AbstractType
@@ -27,9 +28,9 @@ class RegistrationType extends AbstractType
                     'ADMIN'       =>'ROLE_ADMIN',
                     'SUPER ADMIN' => 'ROLE_SUPER_ADMIN'
                   ]
-            ])
-            ->add('password', PasswordType::class)
-            ->add('confirm_password', PasswordType::class);
+            ]);
+            //->add('password', PasswordType::class)
+            //->add('confirm_password', PasswordType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

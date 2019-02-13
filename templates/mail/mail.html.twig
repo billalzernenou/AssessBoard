@@ -1,0 +1,20 @@
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+{%- autoescape false -%}
+ AssessBoard Inscription
+{%- endautoescape -%}
+{% endblock %}
+
+{% block body_text %}
+
+{% endblock %}
+{% block body_html %}
+
+Bonjour Monsieur, Votre identifiant :{{ user.username}}
+Suite à votre inscription sur la platforme AssessBoard. Nous tenons à vous comminiquez :
+Votre identifiant :{{ user.username}}
+Votre motdepasse temporaire : {{ password|e}}
+Merci de réinitialiser votre mot de passe
+L'équipe AssessBoard
+{% endblock %}

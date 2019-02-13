@@ -38,9 +38,15 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8",minMessage="votre mot de passe doit faire minimum 8 caractères")
+     *
      */
     private $password;
+
+    /**
+     *@Assert\Length(min="8",minMessage="votre mot de passe doit faire minimum 8 caractères")
+     *@@Assert\NotBlanck()
+     */
+    public $plainPassword;
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="vous n\'avez pas tapez le meme mot de passe")
@@ -90,6 +96,17 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+    public function getPlainPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPlainPassword(string $PlainPassword): self
+    {
+        $this->PlainPassword = $PlainPassword;
 
         return $this;
     }
