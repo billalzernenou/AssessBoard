@@ -1,19 +1,16 @@
-.row-lint {
-    margin-bottom: 30px;
-}
-.row-btn {
-    margin-top: 10px;
-}
-.container {
-    margin-top: 20px;
-    text-align: center;
-}
-.dash-container {
-    margin-top: 50px;
-    border-radius: 5px;
-    width: 70%;
-    padding: 20px;
+.about-container {
+    margin-top: 120px;
+    background-color: rgba(255,255,255, 0.9); /* Black w/opacity/see-through */
+    color: black;
+    border: 1px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center; 
 }
 .parallax {
     /* The image used */
@@ -27,4 +24,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.text-no-weight {
+    font-weight: 200;
 }

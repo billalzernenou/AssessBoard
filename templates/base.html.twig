@@ -9,25 +9,30 @@
     </head>
     {% block header %}
         <nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top">
-            <a class="navbar-brand" href="#"><img class="logo-nav" style="height: 40px; margin-right: 20px;" src="assets/img/assessboard.png"/>Assessboard</a>
-            <ul class="navbar-nav btn-to-top">
-                <li class="nav-item">
-                    <a class="nav-link" href="#"></a>
-                </li>
-                {% if not app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" class="balise" href="#">Link</a>
-                    <a class="nav-link" class="balise" href="{{ path('security_login') }}">Connexion</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" class="balise" href="{{ path('security_logout') }}">Déconnexion</a>
-                </li>
-                <li class="nav-item">
-                    <h4> {{ app.user.username }}</h4>
-                </li>
-                {% endif %}
-            </ul>
+            <div class="container">
+                    <a class="navbar-brand" href="/"><img class="logo-nav" style="height: 40px; margin-right: 20px;" src="assets/img/assessboard.png"/>Assessboard</a>
+                    <ul class="navbar-nav btn-to-top">
+                        <!-- Vérification de l'url pour afficher dynamiquement le contenu en fonction -->
+                        {% set currentPath = app.request.pathinfo %}
+
+                        <!-- Tests pour définir le contenu à afficher -->
+                        {% if not app.user %}
+                            {% if app.request.pathinfo == "/" %}
+                            <li class="nav-item">
+                                    <a class="nav-link" class="balise" href="{{ path('security_login') }}">Connexion</a>
+                            </li>
+                            {% else %}
+                            {% endif %}
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" class="balise" href="/settings">{{ app.user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" class="balise" href="{{ path('security_logout') }}">Déconnexion</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+            </div>
         </nav>
     {% endblock %}
     <body>
