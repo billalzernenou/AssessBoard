@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'utilisateur{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+    <link rel="stylesheet" href="assets/css/back/create-survey.css">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="pb-2 mt-4 mb-5 border-bottom">
+    <h1>Création d'utilisateur</h1>
+  </div>
+    <div class="card">
+    <img class="card-img-top" src="assets/img/create_user_banner.jpg" alt="Card image cap" style= "max-height: 400px; width: auto;">
+    <div class="card-body">
+        {{ form_start(form)}}
+
+
+        {#form_row(form.password,{'label': 'Mot de passe','attr': {'placeholder': 'Mot de passe'}}) #}
+        {#form_row(form.confirm_password,{'label': 'Confirmation du Mot de passe','attr': {'placeholder': 'Répétez votre de passe'}}) #}
+
+        <div class="form-group row justify-content-center">
+            <label for="pseudo" class="col-sm-2 col-form-label">Nom d'utilisateur</label>
+              <div class="col-sm-7">
+                {{form_row(form.username,{'label': 'Nom d\'Utilisateur','attr': {'placeholder': 'Nom d\'utilisateur...'}}) }}
+              </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="email" class="col-sm-2 col-form-label">Adresse email</label>
+              <div class="col-sm-7">
+                {{form_row(form.email,{'label': 'Adresse Email','attr': {'placeholder': 'Adresse Email...'}}) }}
+              </div>
+              <small id="emailHelpBlock" class="form-text text-muted">
+                  Un email sera envoyé au nouvel utilisateur avec un mot de passe généré.
+              </small>
+        </div>
+        <div class="form-group row justify-content-center">
+          <label for="rank" class="col-sm-2 col-form-label">Type de compte</label>
+            <div class="col-sm-7">
+            {{ form_row(form.roles)}}
+              <small id="rankHelpBlock" class="form-text text-muted">
+                  Un simple utilisateur ne peut pas créer de questionnaire mais peut consulter les statistiques et réponses.
+              </small>
+          </div>
+          <div class="w-100"></div>
+        <div class="form-group row justify-content-center">
+          <label class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-7">
+            <button type="submit" class="btn btn-primary" id="Submit">Créer</button>
+          </div>
+        </div>
+
+</div>
+</div>
+        {{ form_end(form)}}
+
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"> </script>
+{% endblock %}
+{% endblock %}
