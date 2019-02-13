@@ -89,19 +89,7 @@ function fileValidation(){
 
 $('form').submit(function (e) {
 	
-	if (fileValidation()) {
-		$("div[id^=questionnaire_ues_]").each(function() {
-		 	//check at least 1 checkbox is checked
-			if (!$(this).find('input[type=checkbox]').is(':checked')){
-				$(this).append('<div class="form-group"><div class="invalid-feedback">Veuillez cocher au moins une case</div></div>');
-        		$(this).find('.invalid-feedback').css("display","block");
-				//prevent the default form submit if it is not checked
-				e.preventDefault();
-        	}else{
-        		$(this).find('.invalid-feedback').css("display","none");
-        	}
-		});
-	} else {
+	if (!fileValidation()) {
 		e.preventDefault();
 	}
 })

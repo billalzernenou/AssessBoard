@@ -117,7 +117,7 @@ class BaseController extends AbstractController
     /**
      * @Route("/create-survey", name="create-survey")
      */
-    public function createSurvey(Request $request, ObjectManager $manager)
+    public function createSurvey(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
         $questionnaire = new questionnaire();
         $form= $this->createForm(QuestionnaireType::class,$questionnaire);
@@ -135,9 +135,8 @@ class BaseController extends AbstractController
                 }
 
                 $manager->persist($questionnaire);
-                //$manager->flush();
 
-                $this->sendEmail($manager, $questionnaire);
+                $this->sendEmail($manager, $questionnaire, $mailer);
 
                 $request->getSession()
                     ->getFlashBag()
@@ -188,7 +187,7 @@ class BaseController extends AbstractController
         return $emails;
     }
 
-    public function sendEmail(ObjectManager $manager, questionnaire $questionnaire)
+    public function sendEmail(ObjectManager $manager, questionnaire $questionnaire, \Swift_Mailer $mailer)
     {
         $emails = $this->readSpreadsheet();
 
@@ -199,6 +198,24 @@ class BaseController extends AbstractController
             $token = openssl_random_pseudo_bytes(16);
             //Convert the binary data into hexadecimal representation.
             $token = bin2hex($token);
+
+            $formation = $questionnaire->getComposant()->getName();
+
+            $message = (new \Swift_Message('Questionnaire de satisfaction'))
+                ->setFrom('assessboard.sippe@gmail.com')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                        'mail/mailQuestionnaire.html.twig', 
+                        [
+                            'token' => $token,
+                            'formation' => $formation
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
 
             $session = new sessions();
             $session->setId($token);
