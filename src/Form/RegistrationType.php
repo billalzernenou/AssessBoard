@@ -22,11 +22,10 @@ class RegistrationType extends AbstractType
             ->add('username')
             ->add('roles', ChoiceType::class, [
               'multiple' => true,
-              'expanded' => true,
+              'expanded' => false,
               'choices'  => [
                     'USER'        =>'ROLE_USER',
                     'ADMIN'       =>'ROLE_ADMIN',
-                    'SUPER ADMIN' => 'ROLE_SUPER_ADMIN'
                   ]
             ]);
             //->add('password', PasswordType::class)
