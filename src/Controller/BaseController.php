@@ -79,47 +79,32 @@ class BaseController extends AbstractController
             $questionnaire = $session->getQuestionnaire();
             $composant = $questionnaire->getComposant();
             $ues = $questionnaire->getUES();
-            /*foreach ($ues as $ue) {
-                if($ue->getHasLessons()==true){
-                    $questions = $em->getRepository(questionType::class)->findBy(
-                      array('type' => 'lessons')
-                    );
-                }
-                if($ue->getHasTDTP()==true){
-                    $questions = $em->getRepository(questionType::class)->findBy(
-                      array('type' => 'tdtp')
-                    );
-                }
-            }*/
 
             $questions = $em->getRepository(questionType::class)->findAll();
-
 
             $answers = new answers();
             $form= $this->createForm(AnswersType::class,$answers);
             $form->handleRequest($request);
 
             if($request->isMethod('POST')){
-                    //dump($request->request->all());
                     $ues = $request->get('ue');
                     foreach($ues as $ue) {
-                        $test = "questionsUE".strval($ue);
-                        $questions = $request->get("questionUE'$'");
-                        dump($test);
+                        $questions = $request->get("questionUE".strval($ue));
+                        foreach($questions as $question) {
+                            $answers = $request->get("ue".$ue."_question".$question);
+                            $answer = new answers();
+                            $answer->setUE($em->getRepository(UE::class)->find($ue));
+                            $answer->setQuestionType($em->getRepository(questionType::class)->find($question));
+                            $answer->setMark($answers);
+                            $answer->setSessions($session);
+                            $manager->persist($answer);
+                        }
                     }
-                    die;
+                    $session->setIsDone(1);
+                    $manager->persist($session);
+                    $manager->flush();
 
-                    /*$answers = new answers();
-                    $answers->setUE();
-                    $answers->setQuestionType();
-                    $answers->setMark();
-                    $answers->setSessions($id);
-                    $manager->persist($answers);
-                    $manager->flush();*/
-
-                    //$session->setIsDone(1);
-
-                    return $this->redirectToRoute('create-survey');
+                    return $this->redirectToRoute('about');
             }else{
                 return $this->render('front/questionnaire.html.twig', [
                 'session' => $session, 'questionnaire' => $questionnaire, 'composant' => $composant, 'ues' => $ues, 'questions' => $questions, 'id' => $id, 'form' => $form->createView()

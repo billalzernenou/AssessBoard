@@ -78,7 +78,7 @@ class answers
         return $this->sessions;
     }
 
-    public function setSessions(?session $sessions): self
+    public function setSessions(?sessions $sessions): self
     {
         $this->sessions = $sessions;
 
