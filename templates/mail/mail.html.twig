@@ -11,10 +11,9 @@
 {% endblock %}
 {% block body_html %}
 
-Bonjour Monsieur, Votre identifiant :{{ user.username}}
-Suite à votre inscription sur la platforme AssessBoard. Nous tenons à vous comminiquez :
-Votre identifiant :{{ user.username}}
-Votre motdepasse temporaire : {{ password|e}}
-Merci de réinitialiser votre mot de passe
+Bonjour, vous êtes bien inscrit sur la plateforme AssessBoard.
+Votre identifiant : {{ user.username}}
+Votre mot de passe provisoire : {{ password|e}}
+Merci de le changer en accédant à vos paramètres.
 L'équipe AssessBoard
 {% endblock %}
