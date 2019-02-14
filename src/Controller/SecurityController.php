@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
       $form= $this->createForm(RegistrationType::class,$user);
       $form->handleRequest($request);
       $random = openssl_random_pseudo_bytes(8);
-      $random = bin2hex($token);
+      $random = bin2hex($random);
 
 
       if($form->issubmitted() && $form->isValid()) {

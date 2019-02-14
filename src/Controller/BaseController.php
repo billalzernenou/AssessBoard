@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +16,10 @@ use App\Entity\Back\user;
 use App\Entity\Front\questionnaire;
 use App\Entity\Front\UE;
 use App\Entity\Front\sessions;
+use App\Entity\Front\questionType;
+use App\Entity\Front\answers;
 use App\Form\QuestionnaireType;
+use App\Form\AnswersType;
 
 class BaseController extends AbstractController
 {
@@ -34,15 +39,6 @@ class BaseController extends AbstractController
         return $res;
     }
 
-   /**
-     * @Route("/sign-in", name="sign-in")
-     */
-    public function signIn()
-    {
-        return $this->render('front/sign-in.html.twig', ['
-        controller_name' => 'BaseController',
-        ]);
-    }
     /**
      * @Route("/about", name="about")
      */
@@ -68,14 +64,71 @@ class BaseController extends AbstractController
     }
 
      /**
-     * @Route("/questionnaire", name="questionnaire")
+     * @Route("/questionnaire/{id}", name="questionnaire")
      */
-    public function questionnaire()
+    public function questionnaire(Request $request, EntityManagerInterface $em, ObjectManager $manager, string $id)
     {
-        return $this->render('front/questionnaire.html.twig', [
-            'controller_name' => 'BaseController',
-          ]);
+        $session = $em->getRepository(sessions::class)->find($id);
+        if (null === $session) {
+            return $this->redirectToRoute('about');
+        }
+
+        if (($session->getIsDone()) == 1){
+            return $this->redirectToRoute('about');
+        }else{
+            $questionnaire = $session->getQuestionnaire();
+            $composant = $questionnaire->getComposant();
+            $ues = $questionnaire->getUES();
+            /*foreach ($ues as $ue) {
+                if($ue->getHasLessons()==true){
+                    $questions = $em->getRepository(questionType::class)->findBy(
+                      array('type' => 'lessons')
+                    );
+                }
+                if($ue->getHasTDTP()==true){
+                    $questions = $em->getRepository(questionType::class)->findBy(
+                      array('type' => 'tdtp')
+                    );
+                }
+            }*/
+
+            $questions = $em->getRepository(questionType::class)->findAll();
+
+
+            $answers = new answers();
+            $form= $this->createForm(AnswersType::class,$answers);
+            $form->handleRequest($request);
+
+            if($request->isMethod('POST')){
+                    //dump($request->request->all());
+                    $ues = $request->get('ue');
+                    foreach($ues as $ue) {
+                        $test = "questionsUE".strval($ue);
+                        $questions = $request->get("questionUE'$'");
+                        dump($test);
+                    }
+                    die;
+
+                    /*$answers = new answers();
+                    $answers->setUE();
+                    $answers->setQuestionType();
+                    $answers->setMark();
+                    $answers->setSessions($id);
+                    $manager->persist($answers);
+                    $manager->flush();*/
+
+                    //$session->setIsDone(1);
+
+                    return $this->redirectToRoute('create-survey');
+            }else{
+                return $this->render('front/questionnaire.html.twig', [
+                'session' => $session, 'questionnaire' => $questionnaire, 'composant' => $composant, 'ues' => $ues, 'questions' => $questions, 'id' => $id, 'form' => $form->createView()
+                ]);
+            }
+        }
+        
     }
+
      /**
      * @Route("/statistique", name="statistique")
      */
@@ -83,7 +136,7 @@ class BaseController extends AbstractController
     {
         return $this->render('front/statistique.html.twig', [
             'controller_name' => 'BaseController',
-          ]);
+        ]);
     }
 
     /**
@@ -200,6 +253,7 @@ class BaseController extends AbstractController
             $token = bin2hex($token);
 
             $formation = $questionnaire->getComposant()->getName();
+            $etablissement = $formation->getEtablisseent();
 
             $message = (new \Swift_Message('Questionnaire de satisfaction'))
                 ->setFrom('assessboard.sippe@gmail.com')
@@ -209,10 +263,10 @@ class BaseController extends AbstractController
                         'mail/mailQuestionnaire.html.twig', 
                         [
                             'token' => $token,
-                            'formation' => $formation
+                            'formation' => $formation,
+                            'etablissement' => $etablissement
                         ]
-                    ),
-                    'text/html'
+                    )
                 )
             ;
             $mailer->send($message);

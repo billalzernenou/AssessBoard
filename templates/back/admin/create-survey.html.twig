@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BaseController!{% endblock %}
+{% block title %}Création du questionnaire{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -8,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div id="create" class="container">
   {% if app.session.flashBag.has('success') %}
     <div class="alert alert-success">
       {% for msg in app.session.flashBag.get('success') %}
