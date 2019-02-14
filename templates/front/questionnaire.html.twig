@@ -47,30 +47,121 @@
 
 			<h2>UE{{ loop.index }} {{ ue.name }}</h2>
 			<input name="ue[]" type="hidden" value="{{ ue.id }}">
-			{% for question in questions %}
-				<div id="answers">
-					<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
-					<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
-					<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
-						<div class="form-check form-check-inline">
-			  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
-			  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
-						</div>
-						<div class="form-check form-check-inline">
-			  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
-			  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
-						</div>
-						<div class="form-check form-check-inline">
-			  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
-			  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
-						</div>
-						<div class="form-check form-check-inline">
-			  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
-			  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
-						</div>
-					</fieldset>
-				</div>
-	        {% endfor %}
+
+			<div id="Contenu">
+				<h3>Contenu</h3>
+				{% for question in questionsContenu %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+
+	    	<div id="Deroulement">
+				<h3>Déroulement</h3>
+				{% for question in questionsDeroulement %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+
+	    	{% if ue.hasTDTP == true %}
+		    <div id="TD_TP_Projet">
+				<h3>Activités (TD, TP, Projet)</h3>
+				{% for question in questionsTD_TP_Projet %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+			{% endif %}
+
+		    <div id="Presentation">
+				<h3>Présentation</h3>
+				{% for question in questionsPresentation %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+
 	    	</div>
         {% endfor %}
 
@@ -90,7 +181,6 @@
 
 {% block javascripts %}
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('build/js/app.js') }}"> </script>
-    <script src="assets/js/front/questionnaire.js"> </script>
+    <script src="{{asset('assets/js/front/questionnaire.js')}}"> </script>
 {% endblock %}

@@ -19,7 +19,6 @@ use App\Entity\Front\sessions;
 use App\Entity\Front\questionType;
 use App\Entity\Front\answers;
 use App\Form\QuestionnaireType;
-use App\Form\AnswersType;
 
 class BaseController extends AbstractController
 {
@@ -74,17 +73,29 @@ class BaseController extends AbstractController
         }
 
         if (($session->getIsDone()) == 1){
-            return $this->redirectToRoute('about');
+            $message = "Vous avez déjà répondu au questionnaire !";
+
+            return $this->render('front/confirmation.html.twig', [
+                'message' => $message
+            ]);
         }else{
             $questionnaire = $session->getQuestionnaire();
             $composant = $questionnaire->getComposant();
             $ues = $questionnaire->getUES();
 
             $questions = $em->getRepository(questionType::class)->findAll();
-
-            $answers = new answers();
-            $form= $this->createForm(AnswersType::class,$answers);
-            $form->handleRequest($request);
+            $questionsContenu = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'Contenu']
+            );
+            $questionsDeroulement = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'Contenu']
+            );
+            $questionsTD_TP_Projet = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'TD_TP_Projet']
+            );
+            $questionsPresentation = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'Presentation']
+            );
 
             if($request->isMethod('POST')){
                     $ues = $request->get('ue');
@@ -104,10 +115,14 @@ class BaseController extends AbstractController
                     $manager->persist($session);
                     $manager->flush();
 
-                    return $this->redirectToRoute('about');
+                    $message = "Merci pour votre participation !";
+
+                    return $this->render('front/confirmation.html.twig', [
+                        'message' => $message
+                    ]);
             }else{
                 return $this->render('front/questionnaire.html.twig', [
-                'session' => $session, 'questionnaire' => $questionnaire, 'composant' => $composant, 'ues' => $ues, 'questions' => $questions, 'id' => $id, 'form' => $form->createView()
+                'session' => $session, 'questionnaire' => $questionnaire, 'composant' => $composant, 'ues' => $ues, 'questionsContenu' => $questionsContenu, 'questionsDeroulement' => $questionsDeroulement, 'questionsTD_TP_Projet' => $questionsTD_TP_Projet, 'questionsPresentation' => $questionsPresentation, 'id' => $id
                 ]);
             }
         }
