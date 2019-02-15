@@ -28,3 +28,6 @@
 .text-no-weight {
     font-weight: 200;
 }
+.row-btn, .row-second {
+    margin-top: 20px;
+} 

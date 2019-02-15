@@ -16,26 +16,29 @@
                 <div class="card">
                     <div class="card-header">Résumé</div>
                     <div class="card-body text-no-weight">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto minima laudantium eveniet accusantium quidem, laborum voluptatem accusamus, voluptatibus perferendis natus unde aut eaque consequuntur aperiam ea delectus. Ducimus, sapiente at.</p>
+                            MASTER SIPPE M1 & M2
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Survey list part -->
-        <div class="row">
+        <div class="row row-second">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Questionnaires</div>
                     <div class="card-body text-no-weight">
                         <ul class="list-group">
-                            <li class="list-group-item">Master Sippe M1<a class="badge float-right badge-danger badge-pill text-white">X</a></li>
-                            <li class="list-group-item">CP école des privilèges<a class="badge float-right badge-danger badge-pill text-white">X</a></li>
-                            <li class="list-group-item">MMI formation 3<a class="badge float-right badge-danger badge-pill text-white">X</a></li>
+                        {% for ques in QuestionnaireList %}
+                            <li class="list-group-item">
+                                {{ ques.title }}
+                                <a class="badge float-right badge-danger badge-pill text-white">X</a>
+                            </li>
+                        {% endfor %}
                         </ul>
-                        <div class="row">
+                        <div class="row row-btn">
                             <div class="col-md-12">
-                                <button class="btn btn-light float-right" onclick="window.location='{{ route("create-survey") }}'">Ajouter</button>
+                                <button class="btn btn-light float-right"><a href="{{ path('create-survey') }}">Ajouter</a></button>
                             </div>
                         </div>
                     </div>

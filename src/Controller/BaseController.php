@@ -14,6 +14,8 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use App\Entity\Back\user;
 use App\Entity\Front\questionnaire;
+use App\Entity\Front\etablissements;
+use App\Entity\Front\composantes;
 use App\Entity\Front\UE;
 use App\Entity\Front\sessions;
 use App\Entity\Front\questionType;
@@ -164,7 +166,21 @@ class BaseController extends AbstractController
      * @Route("/dashboard", name="dashboard")
      */
     public function dashboard() {
-        return $this->render('back/admin/dashboard.html.twig');
+
+        $QuestionnaireRepository = $this->getDoctrine()->getRepository(questionnaire::class);
+        //$EtablissementsRepository = $this->getDoctrine()->getRepository(etablissements::class);
+        //$ComposentRepository = $this->getDoctrine()->getRepository(composantes::class);
+
+        $ques = $QuestionnaireRepository->findAll();
+        //$etab = $EtablissementsRepository->findAll();
+        //$comp = $ComposentRepository->findAll();
+
+        return $this->render('back/admin/dashboard.html.twig', ['
+        controller_name' => 'BaseController',
+        'QuestionnaireList' => $ques,
+        //'EtablissementsList' => $etab,
+        //'ComposentList' => $comps
+        ]);
     }
 
     /**

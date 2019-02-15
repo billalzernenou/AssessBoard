@@ -8,15 +8,21 @@
 {% block body %}
 
 <div class="container container-settings">
-<h1>Paramètres administrateur</h1>
+<h1>Paramètres utilisateur</h1>
 
 <!-- Admin Settings form -->
 <form>
     <div class="row">
-        <div class="col-md-6" style="padding:0.5em;">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Mes informations</h2>
+                    <div class="form-group">
+                        <label for="username" class="col-form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" value="{{app.user.username}}" readonly>
+                        <div class="email-feedback">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="email" class="col-form-label">Email</label>
                         <input type="email" class="form-control" id="email" value="{{app.user.email}}" placeholder="exemple@gmail.com" required>
