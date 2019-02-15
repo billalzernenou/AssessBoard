@@ -70,3 +70,7 @@ section div div p{
 button{
     margin: 50px 0 0 50px;
 }
+
+#regiration_form .ue:not(:first-of-type) {
+    display: none;
+}

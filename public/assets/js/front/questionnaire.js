@@ -1,4 +1,37 @@
-$('form').submit(function (e) {
+$(document).ready(function(){
+	$(".ue").first().find(".previous").remove();
+	$(".ue").last().find(".next").remove();
+	$(".ue").last().append('<input type="submit" name="submit" class="submit btn btn-success" value="Envoyer" />');
+	var current = 1,current_step,next_step,steps;
+	steps = $(".ue").length;
+	$(".next").click(function(){
+		current_step = $(this).parent();
+		next_step = $(this).parent().next();
+		next_step.show();
+		current_step.hide();
+		setProgressBar(++current);
+	});
+	$(".previous").click(function(){
+		current_step = $(this).parent();
+		next_step = $(this).parent().prev();
+		next_step.show();
+		current_step.hide();
+		setProgressBar(--current);
+	});
+	setProgressBar(current);
+	// Change progress bar action
+	function setProgressBar(curStep){
+		var percent = parseFloat(100 / (steps+1)) * curStep;
+		percent = percent.toFixed();
+		$(".progress-bar")
+			.css("width",percent+"%")
+			.html(percent+"%");   
+	}
+});
+
+
+
+/*$('form').submit(function (e) {
 //$('button[type="button"]').click(function (e) {
 		var id = '{{ id | json_encode | raw }}';
 		var answers = { data: [] };
@@ -28,4 +61,4 @@ $('form').submit(function (e) {
 		        alert("Failed! ");
 		    }
         });
-});
+});*/

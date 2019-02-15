@@ -9,8 +9,7 @@
 {% block body %}
 <section >
 	<div class="wrapper container">
-		<h1 class="entête_formulaire">{{ questionnaire.title }}</h1>
-
+	<h1 class="entête_formulaire">{{ questionnaire.title }}</h1>
 	<ul>
 		<li>{{ composant.name }}</li>
 		<li>{{ questionnaire.promo }}</li>
@@ -21,18 +20,17 @@
 		{{ questionnaire.description }}
 	</p>
 	<div class="clear"></div>
+	<a id="survey"></a>
 	<ul class="notation">
 		<li> 0 pas d'accord</li>
 		<li> 1 plutôt pas d'accord</li>
 		<li> 2 plutôt d'accord </li>
 		<li> 3 d'accord </li>
 	</ul>
-
 	<div class="clear"></div>
 
 	<p class="red">* requis</p>
 </section>
-	</div>
 	
 
 <section >
@@ -40,12 +38,13 @@
 		<div class="card">
 	    <div class="card-body">
 
-		<form method='POST'>
-
-		{% for ue in ues %}
-			<div id="ue_{{ ue.id }}">
-
-			<h2>UE{{ loop.index }} {{ ue.name }}</h2>
+    	<div class="progress">
+		    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+		  </div>
+		  <form id="regiration_form" method="post">
+		  	{% for ue in ues %}
+		  <fieldset class='ue'>
+		    <h2>UE{{ loop.index }} {{ ue.name }}</h2>
 			<input name="ue[]" type="hidden" value="{{ ue.id }}">
 
 			<div id="Contenu">
@@ -161,13 +160,13 @@
 					</div>
 		        {% endfor %}
 	    	</div>
-
-	    	</div>
-        {% endfor %}
-
-        <button class="btn btn-primary" type="submit">Envoyer</button>
-
-    	</form>
+		    <input type="button" name="previous" id="previous" class="previous btn btn-default" value="Previous" onclick="location.href='#survey'" />
+		    <input type="button" name="next" id="next" class="next btn btn-info" value="Next" onclick="location.href='#survey'"/>
+		    <!--<button name="previous" id="previous" class="previous btn btn-default" onclick="location.href='#prev'">Précédent</button>
+		    <button name="next" id="next" class="next btn btn-info" onclick="location.href='#next'">Suivant</button>-->
+		  </fieldset>
+		  {% endfor %}
+		  </form>
 		
 		</div>
 		</div>
