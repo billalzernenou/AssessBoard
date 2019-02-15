@@ -269,7 +269,7 @@ class BaseController extends AbstractController
             $token = bin2hex($token);
 
             $formation = $questionnaire->getComposant()->getName();
-            $etablissement = $formation->getEtablisseent();
+            $etablissement = $questionnaire->getComposant()->getEtablisseent()->getName();
 
             $message = (new \Swift_Message('Questionnaire de satisfaction'))
                 ->setFrom('assessboard.sippe@gmail.com')
