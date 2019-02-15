@@ -16,7 +16,7 @@ class sessionsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, session::class);
+        parent::__construct($registry, sessions::class);
     }
 
     // /**

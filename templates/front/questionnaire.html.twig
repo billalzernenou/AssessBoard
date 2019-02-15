@@ -1,620 +1,185 @@
 {% extends 'base.html.twig' %}
-{% block title %}PAGE DE QUESTIONNAIRE{% endblock %}
+{% block title %}Questionnaire{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
-    <link rel="stylesheet" type="text/css" href="assets/css/front/questionnaire.css">
+    <link rel="stylesheet" href="{{asset('assets/css/front/questionnaire.css')}}">
     <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel="stylesheet">
-   
-
 {% endblock %}
+
 {% block body %}
 <section >
 	<div class="wrapper container">
-		<h1 class="entête_formulaire"> Questionnaire d'évaluation de la formation</h1>
-
+	<h1 class="entête_formulaire">{{ questionnaire.title }}</h1>
 	<ul>
-		<li> Nom</li>
-		<li> Promotion</li>
-		<li> Année</li>
+		<li>{{ composant.name }}</li>
+		<li>{{ questionnaire.promo }}</li>
+		<li>{{ questionnaire.year }}</li>
 	</ul>
 	<div class="clear"></div>
 	<p>
-		Le faux-texte est, en imprimerie, un texte sans signification, dont le seul objectif est de calibrer le contenu d'une page par du texte, fût-il non éditorial, pour travailler sur la seule mise en forme de la page. Le texte définitif prendra la place du faux-texte, une fois que la mise en forme sera jugée acceptable.
+		{{ questionnaire.description }}
 	</p>
-<div class="clear"></div>
-	<ul>
+	<div class="clear"></div>
+	<a id="survey"></a>
+	<ul class="notation">
 		<li> 0 pas d'accord</li>
 		<li> 1 plutôt pas d'accord</li>
 		<li> 2 plutôt d'accord </li>
 		<li> 3 d'accord </li>
 	</ul>
-
 	<div class="clear"></div>
 
 	<p class="red">* requis</p>
 </section>
-	</div>
 	
 
 <section >
 	<div class="wrapper  container">
-		<div class="form-espace formulaire">
-		<h2>UE</h2>
+		<div class="card">
+	    <div class="card-body">
+
+    	<div class="progress">
+		    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+		  </div>
+		  <form id="regiration_form" method="post">
+		  	{% for ue in ues %}
+		  <fieldset class='ue'>
+		    <h2>UE{{ loop.index }} {{ ue.name }}</h2>
+			<input name="ue[]" type="hidden" value="{{ ue.id }}">
+
+			<div id="Contenu">
+				<h3>Contenu</h3>
+				{% for question in questionsContenu %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+
+	    	<div id="Deroulement">
+				<h3>Déroulement</h3>
+				{% for question in questionsDeroulement %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+
+	    	{% if ue.hasTDTP == true %}
+		    <div id="TD_TP_Projet">
+				<h3>Activités (TD, TP, Projet)</h3>
+				{% for question in questionsTD_TP_Projet %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+			{% endif %}
+
+		    <div id="Presentation">
+				<h3>Présentation</h3>
+				{% for question in questionsPresentation %}
+					<div id="answers">
+						<p id="{{ question.id }}">{{ question.libelle }}<span class="red">*</span></p>
+						<input name="questionUE{{ ue.id }}[]" type="hidden" value="{{ question.id }}">
+						<fieldset id="ue_{{ ue.id }}_group{{ loop.index0 }}">
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_0" name="ue{{ ue.id }}_question{{ question.id }}" value="0" required>
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_0">0</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_1" name="ue{{ ue.id }}_question{{ question.id }}" value="1">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_2" name="ue{{ ue.id }}_question{{ question.id }}" value="2">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+				  				<input type="radio" class="form-check-input" id="ue{{ ue.id }}_{{ question.id }}_3" name="ue{{ ue.id }}_question{{ question.id }}" value="3">
+				  				<label class="form-check-label" for="ue{{ ue.id }}_{{ question.id }}_3">3</label>
+							</div>
+						</fieldset>
+					</div>
+		        {% endfor %}
+	    	</div>
+		    <input type="button" name="previous" id="previous" class="previous btn btn-default" value="Previous" onclick="location.href='#survey'" />
+		    <input type="button" name="next" id="next" class="next btn btn-info" value="Next" onclick="location.href='#survey'"/>
+		    <!--<button name="previous" id="previous" class="previous btn btn-default" onclick="location.href='#prev'">Précédent</button>
+		    <button name="next" id="next" class="next btn btn-info" onclick="location.href='#next'">Suivant</button>-->
+		  </fieldset>
+		  {% endfor %}
+		  </form>
 		
+		</div>
+		</div>
 			
-		<h2> Contenu</h2>
-		<p> Le contenu du cours est satisfaisant pour mon orientation professionnelle. <span class="red">*</span></p>
-
-			<div class="button-1">
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-		
-			<p> J'ai compris les objectifs et l'importance de ce cours. <span class="red">*</span></p>
-
-			<div class="button-1">
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-			</div>
-
-			<p> J'ai compris le programme de ce cours. <span class="red">*</span></p>
-
-			<div class="button-1">
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-		
-			<p> Je sais ce que je dois apprendre et sur quoi je serais jugé à l'examen. <span class="red">*</span></p>
-
-			<div class="button-1">
-				
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-		
-			<p> Les ressources nécessaires me semblent appropriées et disponibles. <span class="red">*</span></p>
-
-			<div class="button-1">
-				
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-		
-			<!-- Déroulement-->
-
-			<h2> Déroulement</h2>
-		<p> Le cours est bien équilibré entre éléments de théorie, exemples et applications. <span class="red">*</span></p>
-
-			<div class="button-1">
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-
-
-			<p> J'ai compris quels sont les objectifs de chaque séance . <span class="red">*</span></p>
-
-			<div class="button-1">
-				
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-			</div>
-
-			<p> Le déroulement des cours,TD, TP réflète la difficulté et l'importance des sujets traités. <span class="red">*</span></p>
-
-			<div class="button-1">
-				<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-			</div>
-
-			<p> Le travail en cours, TD, TP prépare correctement à l'examen. <span class="red">*</span></p>
-		<div class="button-1">
-			<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-		</div>
-
-		
-
-			<p> Le volume horaire reflète l'importance de la matière. <span class="red">*</span></p>
-			<div class="button-1">
-
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-		</div>
-			<!--Activités (TD, TP, Projet -->
-
-			<h2> Activités (TD, TP, Projet)</h2>
-		<p> Je sais quelles sont les activités que l'on attend de moi. <span class="red">*</span></p>
-
-		<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-		
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-			</div>
-
-			<p> J'ai compris quels sont les critères et les directives de ces activités . <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-		</div>
-
-			<p> Je sais quels sont les objectifs évalués par ces activités . <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-		</div>
-			<p> Ces activités sont ordonnées en fonction de leur difficulté croissante. <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-
-			<p> Ces activités me permettent de vérifier ma progression. <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-			</div>
-			<!-- Présentation -->
-
-
-
-			<h2> Présentation </h2>
-		<p> L'enseignant présente la matière de façon claire et structurée. <span class="red">*</span></p>
-
-		<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-
-
-			<p> Les supports de cours me sont utiles . <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-			</div>
-
-
-			<p> L'enseignant s'assure que les notions sont bien assimilées. <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-		</div>
-			<p> L'enseignant semble soucieux d'ameliorer son cours. <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-
-		</div>
-			<p> L'enseignant est suffisament disponible. <span class="red">*</span></p>
-
-			<div class="button-1">
-		<!-- Material inline 0 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline0" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline0">0</label>
-			</div>
-		<!-- Material inline 1 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline1">1</label>
-			</div>
-
-			<!-- Material inline 2 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  			<label class="form-check-label" for="materialInline2">2</label>
-			</div>
-
-			<!-- Material inline 3 -->
-			<div class="form-check form-check-inline">
-  			<input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
- 			 <label class="form-check-label" for="materialInline3">3</label>
-			</div>
-		</div>
-			</div>
-			
-			<a href="#" class="btn btn-info button-2" role="button">ENVOYER</a>
 	</div>
 	
 </section>
 
 
+{% endblock %}
 
 {% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="{{ asset('build/js/app.js') }}"> </script>
-{% endblock %}
+    <script src="{{asset('assets/js/front/questionnaire.js')}}"> </script>
 {% endblock %}

@@ -26,11 +26,6 @@ class UE
      */
     private $hasTDTP;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $hasLessons;
-
   /**
    *
    * @ORM\ManyToOne(targetEntity="App\Entity\Front\questionnaire", inversedBy="ues")
@@ -63,19 +58,6 @@ class UE
     public function setHasTDTP(?bool $hasTDTP): self
     {
         $this->hasTDTP = $hasTDTP;
-
-        return $this;
-    }
-
-
-    public function getHasLessons(): ?bool
-    {
-        return $this->hasLessons;
-    }
-
-    public function setHasLessons(?bool $hasLessons): self
-    {
-        $this->hasLessons = $hasLessons;
 
         return $this;
     }

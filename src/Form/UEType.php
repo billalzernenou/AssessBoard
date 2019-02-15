@@ -20,10 +20,6 @@ class UEType extends AbstractType
                     'placeholder' => 'UE'
                 ]
             ])
-            ->add('hasLessons', CheckboxType::class, [
-                'label'    => 'Cours',
-                'required' => false
-            ])
             ->add('hasTDTP', CheckboxType::class, [
                 'label'    => 'TD/TP/Projet',
                 'required' => false

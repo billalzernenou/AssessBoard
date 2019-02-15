@@ -5,43 +5,47 @@
 
 body{
     font-family: Arial,sans-serif;
-    font-size: 15px;}
+    font-size: 15px;
+}
 
 .wrapper{
     width: 940px;
     margin: 0 auto;
-    padding: 0 10px;}
+    padding: 0 10px;
+}
 
-    ul{
+ul{
     list-style: none;
 }
 
-
 .entête_formulaire{
-
 	margin-top: 120px;
+    margin-bottom: 50px;
 	text-align: center;
 	font-family: 'Crete Round',serif;
     font-size: 45px;
     color: #444;
 }
+
 section div ul li{
 	float: left;
 	margin-right: 20px;
-
 	padding: 15px 0;
 	font-family: 'Crete Round',serif;
     font-size: 20px;
     color: #444;
 }
+
+.notation li{
+    font-size: 15px;
+}
+
 .clear{
     clear: both;
 }
 
 .red{
 	color: red;
-	font-weight: bold;
-	font-size:20px;
 }
 
 section div h2{
@@ -49,40 +53,24 @@ section div h2{
     font-size: 30px;
     color: #444;
     padding: 30px 30px;
-
 }
 
-.formulaire{
-	border: 1px solid black;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	border-radius: 5px;
+h3{
+    padding: 30px 30px;
+}
+
+fieldset{
+    margin: 20px 50px 20px 50px;
 }
 
 section div div p{
 	padding-left: 30px;
 }
 
-.button-1{
-	padding-left: 80px;
-
+button{
+    margin: 50px 0 0 50px;
 }
 
-.form-espace{
-	padding-bottom: 40px;
-}
-
-.button-2{
-    color:#fff;
-    font-size: 20px;
-    font-weight: bold;
-    padding:11px;
-    background-color: #02b8dd;
-    border-style: none;
-    border-radius: 3px;
-}
-.button-2:hover{
-    color: #fff;
-    background-color:#444;
-    
+#regiration_form .ue:not(:first-of-type) {
+    display: none;
 }

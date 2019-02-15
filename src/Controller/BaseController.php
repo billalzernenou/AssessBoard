@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +18,8 @@ use App\Entity\Front\etablissements;
 use App\Entity\Front\composantes;
 use App\Entity\Front\UE;
 use App\Entity\Front\sessions;
+use App\Entity\Front\questionType;
+use App\Entity\Front\answers;
 use App\Form\QuestionnaireType;
 
 class BaseController extends AbstractController
@@ -36,15 +40,6 @@ class BaseController extends AbstractController
         return $res;
     }
 
-   /**
-     * @Route("/sign-in", name="sign-in")
-     */
-    public function signIn()
-    {
-        return $this->render('front/sign-in.html.twig', ['
-        controller_name' => 'BaseController',
-        ]);
-    }
     /**
      * @Route("/about", name="about")
      */
@@ -70,14 +65,72 @@ class BaseController extends AbstractController
     }
 
      /**
-     * @Route("/questionnaire", name="questionnaire")
+     * @Route("/questionnaire/{id}", name="questionnaire")
      */
-    public function questionnaire()
+    public function questionnaire(Request $request, EntityManagerInterface $em, ObjectManager $manager, string $id)
     {
-        return $this->render('front/questionnaire.html.twig', [
-            'controller_name' => 'BaseController',
-          ]);
+        $session = $em->getRepository(sessions::class)->find($id);
+        if (null === $session) {
+            return $this->redirectToRoute('about');
+        }
+
+        if (($session->getIsDone()) == 1){
+            $message = "Vous avez déjà répondu au questionnaire !";
+
+            return $this->render('front/confirmation.html.twig', [
+                'message' => $message
+            ]);
+        }else{
+            $questionnaire = $session->getQuestionnaire();
+            $composant = $questionnaire->getComposant();
+            $ues = $questionnaire->getUES();
+
+            $questions = $em->getRepository(questionType::class)->findAll();
+            $questionsContenu = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'Contenu']
+            );
+            $questionsDeroulement = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'Contenu']
+            );
+            $questionsTD_TP_Projet = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'TD_TP_Projet']
+            );
+            $questionsPresentation = $em->getRepository(questionType::class)->findBy(
+                ['type' => 'Presentation']
+            );
+
+            if($request->isMethod('POST')){
+                    $ues = $request->get('ue');
+                    foreach($ues as $ue) {
+                        $questions = $request->get("questionUE".strval($ue));
+                        foreach($questions as $question) {
+                            $answers = $request->get("ue".$ue."_question".$question);
+                            $answer = new answers();
+                            $answer->setUE($em->getRepository(UE::class)->find($ue));
+                            $answer->setQuestionType($em->getRepository(questionType::class)->find($question));
+                            $answer->setMark($answers);
+                            $answer->setSessions($session);
+                            $manager->persist($answer);
+                        }
+                    }
+                    $session->setIsDone(1);
+                    $manager->persist($session);
+                    $manager->flush();
+
+                    $message = "Merci pour votre participation !";
+
+                    return $this->render('front/confirmation.html.twig', [
+                        'message' => $message
+                    ]);
+            }else{
+                return $this->render('front/questionnaire.html.twig', [
+                'session' => $session, 'questionnaire' => $questionnaire, 'composant' => $composant, 'ues' => $ues, 'questionsContenu' => $questionsContenu, 'questionsDeroulement' => $questionsDeroulement, 'questionsTD_TP_Projet' => $questionsTD_TP_Projet, 'questionsPresentation' => $questionsPresentation, 'id' => $id
+                ]);
+            }
+        }
+        
     }
+
      /**
      * @Route("/statistique", name="statistique")
      */
@@ -85,7 +138,7 @@ class BaseController extends AbstractController
     {
         return $this->render('front/statistique.html.twig', [
             'controller_name' => 'BaseController',
-          ]);
+        ]);
     }
 
     /**
@@ -133,7 +186,7 @@ class BaseController extends AbstractController
     /**
      * @Route("/create-survey", name="create-survey")
      */
-    public function createSurvey(Request $request, ObjectManager $manager)
+    public function createSurvey(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
         $questionnaire = new questionnaire();
         $form= $this->createForm(QuestionnaireType::class,$questionnaire);
@@ -151,9 +204,8 @@ class BaseController extends AbstractController
                 }
 
                 $manager->persist($questionnaire);
-                //$manager->flush();
 
-                $this->sendEmail($manager, $questionnaire);
+                $this->sendEmail($manager, $questionnaire, $mailer);
 
                 $request->getSession()
                     ->getFlashBag()
@@ -204,7 +256,7 @@ class BaseController extends AbstractController
         return $emails;
     }
 
-    public function sendEmail(ObjectManager $manager, questionnaire $questionnaire)
+    public function sendEmail(ObjectManager $manager, questionnaire $questionnaire, \Swift_Mailer $mailer)
     {
         $emails = $this->readSpreadsheet();
 
@@ -215,6 +267,25 @@ class BaseController extends AbstractController
             $token = openssl_random_pseudo_bytes(16);
             //Convert the binary data into hexadecimal representation.
             $token = bin2hex($token);
+
+            $formation = $questionnaire->getComposant()->getName();
+            $etablissement = $formation->getEtablisseent();
+
+            $message = (new \Swift_Message('Questionnaire de satisfaction'))
+                ->setFrom('assessboard.sippe@gmail.com')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                        'mail/mailQuestionnaire.html.twig', 
+                        [
+                            'token' => $token,
+                            'formation' => $formation,
+                            'etablissement' => $etablissement
+                        ]
+                    )
+                )
+            ;
+            $mailer->send($message);
 
             $session = new sessions();
             $session->setId($token);
